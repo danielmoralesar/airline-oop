@@ -2,6 +2,7 @@ package org.ies.airline.model;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Airline {
     private String name;
@@ -21,9 +22,26 @@ public class Airline {
         return null;
     }
 
-//    public Passenger findPassenger(int nif){
-//
-//    }
+    public Passenger findPassenger(String nif) {
+        for (var flight : flights) {
+            for (var passenger : flight.getPassengers()) {
+                if (passenger.getNif().equals(nif)) {
+                    return passenger;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void changeSeat(String nif, Integer seatNumber) {
+        var passenger = findPassenger(nif);
+        if (passenger != null) {
+            passenger.setSeatNumber(seatNumber);
+            System.out.println("Asiento cambiado con éxito");
+        } else {
+            System.out.println("Error: pasajero no encontrado en el vuelo o NIF erroneo");
+        }
+    }
 
     public String getName() {
         return name;
