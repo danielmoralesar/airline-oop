@@ -2,7 +2,6 @@ package org.ies.airline.model;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Airline {
     private String name;
@@ -11,6 +10,43 @@ public class Airline {
     public Airline(String name, Flight[] flights) {
         this.name = name;
         this.flights = flights;
+    }
+
+    public void showInfo() {
+        System.out.println("Aerolínea: " + name + "; Vuelos: ");
+        for (var flight : flights) {
+            flight.showInfo();
+        }
+    }
+
+    public void showOriginFlights(String origin) {
+        for (var flight : flights) {
+            if (flight.getOrigin().equals(origin)) {
+                flight.showInfo();
+            }
+        }
+    }
+
+    public void showPassengerFlights(String nif) {
+        for (var flight : flights) {
+            if (flight.hasPassenger(nif)) {
+                flight.showInfo();
+            }
+        }
+    }
+
+    public Integer findPassengerSeat(int flightNumber, String nif) {
+        var flight = findFlight(flightNumber);
+        if (flight != null) {
+            var passenger = flight.findPassenger(nif);
+            if (passenger != null) {
+                return passenger.getSeatNumber();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 
     public Flight findFlight(int flightNumber) {
@@ -22,24 +58,14 @@ public class Airline {
         return null;
     }
 
-    public Passenger findPassenger(String nif) {
-        for (var flight : flights) {
-            for (var passenger : flight.getPassengers()) {
-                if (passenger.getNif().equals(nif)) {
-                    return passenger;
-                }
-            }
-        }
-        return null;
-    }
-
-    public void changeSeat(String nif, Integer seatNumber) {
-        var passenger = findPassenger(nif);
+    public void changeSeat(String nif, Integer seatNumber, Flight flight) {
+        var passenger = flight.findPassenger(nif);
         if (passenger != null) {
             passenger.setSeatNumber(seatNumber);
             System.out.println("Asiento cambiado con éxito");
+            passenger.showInfo();
         } else {
-            System.out.println("Error: pasajero no encontrado en el vuelo o NIF erroneo");
+            System.out.println("Error: pasajero no registrado en el vuelo o NIF erroneo");
         }
     }
 

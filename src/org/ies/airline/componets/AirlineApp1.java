@@ -1,7 +1,5 @@
 package org.ies.airline.componets;
 
-import org.ies.airline.model.Airline;
-
 import java.util.Scanner;
 
 public class AirlineApp1 {
@@ -19,12 +17,13 @@ public class AirlineApp1 {
         System.out.print("Ingrese el número de un vuelo: ");
         int flightNumber = scanner.nextInt();
         scanner.nextLine();
-        if (airline.findFlight(flightNumber) != null) {
+        var flight = airline.findFlight(flightNumber);
+        if (flight != null) {
             System.out.print("Ingrese el NIF de un pasajero: ");
             String nif = scanner.nextLine();
             System.out.println("Ahora, ingrese el número del asiento que desee cambiar");
             Integer seatNumber = scanner.nextInt();
-            airline.changeSeat(nif, seatNumber);
+            airline.changeSeat(nif, seatNumber, flight);
         } else {
             System.out.println("Error, vuelo no encontrado");
         }
