@@ -85,7 +85,7 @@ public class AirlineAppMenu {
     }
 
     private Integer askSeatNumber() {
-        Integer seat;
+        int seat;
         do {
             System.out.println("Ingrese un número de asiento");
             seat = scanner.nextInt();
