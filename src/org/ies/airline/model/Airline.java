@@ -41,12 +41,9 @@ public class Airline {
             var passenger = flight.findPassenger(nif);
             if (passenger != null) {
                 return passenger.getSeatNumber();
-            } else {
-                return null;
             }
-        } else {
-            return null;
         }
+        return null;
     }
 
     public Flight findFlight(int flightNumber) {
