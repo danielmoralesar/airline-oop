@@ -1,5 +1,7 @@
 package org.ies.airline.componets;
 
+import org.ies.airline.model.Airline;
+
 import java.util.Scanner;
 
 public class AirlineAppMenu {
@@ -18,39 +20,59 @@ public class AirlineAppMenu {
         do {
             option = askOption();
             if (option == 1) {
-                for (var flight : airline.getFlights()) {
-                    flight.showInfo();
-                }
+                option1(airline);
             } else if (option == 2) {
-                System.out.println("Ingrese un origen: ");
-                String origin = scanner.nextLine();
-                airline.showOriginFlights(origin);
+                option2(airline);
             } else if (option == 3) {
-                String nif = askNif();
-                airline.showPassengerFlights(nif);
+                option3(airline);
             } else if (option == 4) {
-                int flightNumber = askFlightNumber();
-                String nif = askNif();
-                Integer seat = airline.findPassengerSeat(flightNumber, nif);
-                if (seat != null) {
-                    System.out.println("El asieto asignado es: " + seat);
-                } else {
-                    System.out.println("Error: el vuelo no existe o el pasajero no está registrado en el vuelo");
-                }
+                option4(airline);
             } else if (option == 5) {
-                int flightNumber = askFlightNumber();
-                var flight = airline.findFlight(flightNumber);
-                String nif = askNif();
-                Integer seat = askSeatNumber();
-                if (flight != null) {
-                    airline.changeSeat(nif, seat, flight);
-                } else {
-                    System.out.println("Error, vuelo no encontrado");
-                }
+                option5(airline);
             } else {
                 System.out.println("¡Hasta luego!");
             }
         } while (option != 6);
+    }
+
+    private void option5(Airline airline) {
+        int flightNumber = askFlightNumber();
+        var flight = airline.findFlight(flightNumber);
+        String nif = askNif();
+        Integer seat = askSeatNumber();
+        if (flight != null) {
+            airline.changeSeat(nif, seat, flight);
+        } else {
+            System.out.println("Error, vuelo no encontrado");
+        }
+    }
+
+    private void option4(Airline airline) {
+        int flightNumber = askFlightNumber();
+        String nif = askNif();
+        Integer seat = airline.findPassengerSeat(flightNumber, nif);
+        if (seat != null) {
+            System.out.println("El asieto asignado es: " + seat);
+        } else {
+            System.out.println("Error: el vuelo no existe o el pasajero no está registrado en el vuelo");
+        }
+    }
+
+    private void option3(Airline airline) {
+        String nif = askNif();
+        airline.showPassengerFlights(nif);
+    }
+
+    private void option2(Airline airline) {
+        System.out.println("Ingrese un origen: ");
+        String origin = scanner.nextLine();
+        airline.showOriginFlights(origin);
+    }
+
+    private static void option1(Airline airline) {
+        for (var flight : airline.getFlights()) {
+            flight.showInfo();
+        }
     }
 
     private int askOption() {
