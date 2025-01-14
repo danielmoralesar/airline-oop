@@ -4,11 +4,11 @@ import org.ies.airline.model.Airline;
 
 import java.util.Scanner;
 
-public class AirlineAppMenu {
+public class AirlineMenuApp {
     private final AirlineReader airlineReader;
     private final Scanner scanner;
 
-    public AirlineAppMenu(AirlineReader airlineReader, Scanner scanner) {
+    public AirlineMenuApp(AirlineReader airlineReader, Scanner scanner) {
         this.airlineReader = airlineReader;
         this.scanner = scanner;
     }
